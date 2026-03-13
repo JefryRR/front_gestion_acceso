@@ -20,7 +20,11 @@ export async function apiFetch(endpoint, options = {}) {
   const config = {
     method: options.method || "GET",
     headers,
-    ...(options.body && { body: options.body })
+    body: options.body instanceof FormData
+      ? options.body
+      : options.body
+      ? JSON.stringify(options.body)
+      : undefined
   };
 
 
@@ -29,6 +33,13 @@ export async function apiFetch(endpoint, options = {}) {
 
   //validación de errores 
   if (!response.ok) {
+
+    // const errorData = await response.json();
+
+    // console.log("STATUS:", response.status);
+    // console.log("ERROR BACKEND:", errorData);
+
+
     //si es 401, elimina el token para volver a intentar el acceso
     if (response.status === 401) {
       localStorage.removeItem("token");
@@ -38,7 +49,5 @@ export async function apiFetch(endpoint, options = {}) {
     const error = await response.json();
     throw error;
   }
-  
-
   return response.json();
 }

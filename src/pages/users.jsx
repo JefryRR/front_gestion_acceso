@@ -59,7 +59,7 @@ function Users() {
       `users/by_id_user/${selectedUser.id_usuario}`,
       {
         method: "PUT",
-        body: JSON.stringify(data),
+        body: data,
       }
     );
     setUsers(users =>
@@ -84,10 +84,10 @@ function Users() {
 
   async function handleCreateUser(data) {
     try {
-      const response = await apiFetch(`users/crear`, {
-            method: "POST",
-            body: JSON.stringify(data),
-          });
+      await apiFetch(`users/crear`, {
+        method: "POST",
+        body: data,
+      });
 
         setOpenCreate(false);
         fetchUsers();

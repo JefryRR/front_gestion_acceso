@@ -19,31 +19,32 @@ function PersonCreateModal({ onSave, oncancel }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-      setForm({ ...form, [name]: value });
+    setForm({ ...form, [name]: value });
   };
 
   return (
-    <form onSubmit={(e) => { e.preventDefault();
-                            const now = new Date();
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      const now = new Date();
 
-                          const fecha_actual =
-                            now.getFullYear() + "-" +
-                            String(now.getMonth() + 1).padStart(2, "0") + "-" +
-                            String(now.getDate()).padStart(2, "0") + " " +
-                            String(now.getHours()).padStart(2, "0") + ":" +
-                            String(now.getMinutes()).padStart(2, "0") + ":" +
-                            String(now.getSeconds()).padStart(2, "0");
-                                                      
-                            const data = {...form,fecha_registro: fecha_actual};                            
-                            onSave(data);
-                           }}>
+      const fecha_actual =
+        now.getFullYear() + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        String(now.getDate()).padStart(2, "0") + " " +
+        String(now.getHours()).padStart(2, "0") + ":" +
+        String(now.getMinutes()).padStart(2, "0") + ":" +
+        String(now.getSeconds()).padStart(2, "0");
+
+      const data = { ...form, fecha_registro: fecha_actual };
+      onSave(data);
+    }}>
 
       <MDTypography variant="h6" mb={3}>
         Registrar persona
       </MDTypography>
 
-       <MDBox mb={2}>
-         <FormControl size="md">
+      <MDBox mb={2}>
+        <FormControl size="md">
           <InputLabel id="tipo-persona-label">Tipo persona</InputLabel>
           <Select
             labelId="tipo_persona-label"
@@ -51,9 +52,10 @@ function PersonCreateModal({ onSave, oncancel }) {
             value={form.tipo_persona || ""}
             label="Tipo persona"
             onChange={handleChange}
-            sx={{ height: 40,
-                  width: 200
-                }}
+            sx={{
+              height: 40,
+              width: 200
+            }}
           >
             <MenuItem value="Sena">Sena</MenuItem>
             <MenuItem value="Visitante">Visitante</MenuItem>
@@ -65,7 +67,7 @@ function PersonCreateModal({ onSave, oncancel }) {
         <MDInput
           label="Nombre"
           name="nombre_completo"
-          value={form.nombre_completo}
+          value={form.nombre_completo || ""}
           onChange={handleChange}
         />
       </MDBox>
@@ -79,14 +81,15 @@ function PersonCreateModal({ onSave, oncancel }) {
             value={form.tipo_documento || ""}
             label="Tipo persona"
             onChange={handleChange}
-            sx={{ height: 40,
-                  width: 200
-                }}
+            sx={{
+              height: 40,
+              width: 200
+            }}
           >
             <MenuItem value="CC">Cédula cuidadanía</MenuItem>
             <MenuItem value="TI">Tarjeta identidad</MenuItem>
             <MenuItem value="CE">Cédula extranjería</MenuItem>
-            <MenuItem value="pasaporte">Pasaporte</MenuItem>
+            <MenuItem value="Pasaporte">Pasaporte</MenuItem>
           </Select>
         </FormControl>
       </MDBox>
@@ -95,9 +98,9 @@ function PersonCreateModal({ onSave, oncancel }) {
         <MDInput
           label="Documento"
           name="documento"
-          value={form.documento}
+          value={form.documento || ""}
           onChange={handleChange}
-        /> 
+        />
       </MDBox>
 
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MDBox from "@/components/MDBox";
 import MDButton from "@/components/MDButton";
 import MDInput from "@/components/MDInput";
-import { apiFetch } from "@/services/api"; 
+import { apiFetch } from "@/services/api";
 import MDTypography from "@/components/MDTypography";
 
 export default function UserEditModal({ oncancel, user, onSave }) {
@@ -11,7 +11,7 @@ export default function UserEditModal({ oncancel, user, onSave }) {
 
   const [sedes, setSedes] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     apiFetch("sede/all/sedes")
       .then(data => {
 
@@ -20,10 +20,10 @@ export default function UserEditModal({ oncancel, user, onSave }) {
           const lista = Array.isArray(data) ? data : data.sedes || [];
           setSedes(lista);
 
-            // Si ya hay usuario, aseguramos que el form tenga la sede correcta
+          // Si ya hay usuario, aseguramos que el form tenga la sede correcta
           if (user) {
             setForm(prev => ({ ...prev, sede_id: user.sede_id }));
-            }
+          }
         }
         // Si devuelve paginación:
         else if (data.sedes) {
@@ -87,11 +87,11 @@ export default function UserEditModal({ oncancel, user, onSave }) {
           InputLabelProps={{ shrink: true }}
         >
           <option value="">Seleccione la sede</option>
-            {sedes.map((sedes) => (
-              <option key={sedes.id_sede} value={sedes.id_sede}>
-                {sedes.nombre}
-              </option>
-            ))}
+          {sedes.map((sedes) => (
+            <option key={sedes.id_sede} value={sedes.id_sede}>
+              {sedes.nombre}
+            </option>
+          ))}
         </MDInput>
       </MDBox>
 

@@ -77,7 +77,7 @@ export default function PersonEditModal({ oncancel, person, onSave }) {
             <MenuItem value="CC">Cédula cuidadanía</MenuItem>
             <MenuItem value="TI">Tarjeta identidad</MenuItem>
             <MenuItem value="CE">Cédula extranjería</MenuItem>
-            <MenuItem value="pasaporte">Pasaporte</MenuItem>
+            <MenuItem value="Pasaporte">Pasaporte</MenuItem>
           </Select>
         </FormControl>
       </MDBox>

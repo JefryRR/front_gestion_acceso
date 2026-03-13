@@ -16,7 +16,7 @@ import DataTableBodyCell from "./DataTableBodyCell";
 import * as MuiIcons from "@mui/icons-material";
 
 
-function DataTable({ canSearch, table, pagination, noEndBorder, createLabel, createRoute, headerActions
+function DataTable({ canSearch, table, pagination, noEndBorder, headerActions
 }) {
   const columns = useMemo(() => table.columns, [table.columns]);
   const data = useMemo(() => table.rows, [table.rows]);
@@ -128,7 +128,7 @@ function DataTable({ canSearch, table, pagination, noEndBorder, createLabel, cre
   const KeyboardArrowLeft = MuiIcons.KeyboardArrowLeft;
 
   return (
-    <TableContainer sx={{ boxShadow: "none", width: 1150 }}>
+    <TableContainer sx={{ boxShadow: "none", width: 1150, maxHeight: "580px"}}>
       
       <MDBox display="flex" justifyContent="space-between" p={3}>
         <MDBox>

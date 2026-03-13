@@ -9,6 +9,11 @@ import Login from "@/pages/login";
 import Dashboard from "@/layouts/dashboard";
 import Persons from "@/pages/person";
 import Equipements from "@/pages/equip_externos";
+import Equipements_sede from "@/pages/equip_sede";
+import Sedes from "@/pages/sedes";
+import Centros from "@/pages/centros";
+import Auth_salida from "@/pages/auth_salida";
+import Movements from "@/pages/movements";
 
 function App() {
   return (
@@ -28,6 +33,11 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="persons" element={<Persons />} />
         <Route path="equipement" element={<Equipements />} />
+        <Route path="equipement_sede" element={<Equipements_sede />} />
+        <Route path="sedes" element={<Sedes />} />
+        <Route path="centros" element={<Centros />} />
+        <Route path="auth_salida" element={<Auth_salida />} />
+        <Route path="movements" element={<Movements />} />
       </Route>
 
       {/* Fallback 

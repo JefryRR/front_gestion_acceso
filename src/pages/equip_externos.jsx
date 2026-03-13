@@ -73,7 +73,7 @@ function Equips_ext() {
         `equipments/by_id/${selectedEquips_ext.id_equipo}`,
         {
           method: "PUT",
-          body: JSON.stringify(data),
+          body: data,
         }
       );
       setEquips_ext(equipo =>
@@ -111,7 +111,17 @@ function Equips_ext() {
     { header: "Tipo equipo", accessorKey: "t_equipo" },
     { header: "N. serie", accessorKey: "serie_eq" },
     { header: "Marca", accessorKey: "marca_eq" },
-    { header: "descripcion", accessorKey: "descrip_eq" },
+    { header: "descripcion", accessorKey: "descrip_eq",
+      cell: (info) => (
+        <div style={{ 
+          whiteSpace: "normal",
+          wordBreak: "break-word",
+          maxWidth: "200px"
+        }}>
+          {info.getValue()}
+        </div>
+      )
+     },
     { header: "Código barras", accessorKey: "cod_eq" },
     {header: "Imagen", accessorKey: "foto_eq",
       cell: (info) => {
@@ -197,7 +207,7 @@ function Equips_ext() {
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
         <Card>
-          <MDBox p={3} sx={{ overflowX: "scroll"}}>
+          <MDBox p={3}>
             <MDTypography variant="h3">Equipos externos</MDTypography>
             <DataTable 
               table={{ columns, rows }}

@@ -55,7 +55,7 @@ function UserCreateModal({ onSave, oncancel }) {
 
         // Si tu backend devuelve lista directa:
         if (Array.isArray(data)) {
-          setRoles(data);
+            setRoles(data);
         }
         // Si devuelve paginación:
         else if (data.roles) {

@@ -7,6 +7,9 @@ export function AuthProvider({ children }) {
     !!localStorage.getItem("token")
   );
 
+  const [user, setUser] = useState(null);
+  const [permisos, setPermisos] = useState([]);
+
   const loginUser = (token) => {
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
@@ -21,7 +24,7 @@ export function AuthProvider({ children }) {
   }, [isAuthenticated]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, loginUser, logoutUser, user, permisos, setUser, setPermisos }}>
       {children}
     </AuthContext.Provider>
   );
