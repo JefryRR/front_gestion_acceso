@@ -108,9 +108,9 @@ function Equips_ext() {
 
   const columns = [
     { header: "Proietario", accessorKey: "nom_persona" },
-    { header: "Tipo equipo", accessorKey: "t_equipo" },
+    { header: "Tipo equipo", accessorKey: "c_equipo" },
     { header: "N. serie", accessorKey: "serie_eq" },
-    { header: "Marca", accessorKey: "marca_eq" },
+    { header: "marca_modelo", accessorKey: "marca_modelo_eq" },
     { header: "descripcion", accessorKey: "descrip_eq",
       cell: (info) => (
         <div style={{ 
@@ -191,9 +191,9 @@ function Equips_ext() {
 
   const rows = Equips_ext.map((equipement) => ({
     nom_persona: equipement.nombre_completo,
-    t_equipo: equipement.tipo_equipo,
+    c_equipo: equipement.nombre_categoria,
     serie_eq: equipement.serial,
-    marca_eq: equipement.marca_modelo,
+    marca_modelo_eq: equipement.marca_modelo,
     descrip_eq: equipement.descripcion,
     cod_eq: equipement.codigo_barras_inv,
     foto_eq: equipement.foto_path,

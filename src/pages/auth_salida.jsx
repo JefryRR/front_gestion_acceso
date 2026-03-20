@@ -23,7 +23,7 @@ function Auth_salida() {
 
 
   const fetchAuth_salida = async () => {
-    const res = await apiFetch(`autorizacion_salida/all-auth_salida-pag?page=${page + 1}&page_size=${pageSize}`)
+    const res = await apiFetch(`autorizacion_salida/paginated?page=${page + 1}&page_size=${pageSize}`)
     setAuth_salida(res.auth_salida);
     setTotal(res.total_auth_salida);
   }
@@ -189,7 +189,7 @@ function Auth_salida() {
 
   const rows = auth_salida.map((auth_salida) => ({
     nom_user_auth: auth_salida.nombre_usuario,
-    t_equipo: auth_salida.categoria,
+    t_equipo: auth_salida.nombre_categoria,
     motivo_auth: auth_salida.motivo,
     serie_eq: auth_salida.serial,
     destino_eq: auth_salida.destino,

@@ -18,12 +18,16 @@ function movements() {
   const [pageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [openCreate, setOpenCreate] = useState(false);
+  const [tiposMovimiento, setTiposMovimiento] = useState([]);
 
-  const estadosMovement = [
-    { value: "Entrada", label: "ENTRADA" },
-    { value: "Salida", label: "SALIDA" },
-    { value: "Traslado", label: "TRASLADO" }
-  ];
+  const fetchMovementTypes = async () => {
+    try {
+      const res = await apiFetch(`type/all-movements-types`);
+      setTiposMovimiento(res);
+    } catch (error) {
+      console.error("Error al traer tipos de movimiento:", error);
+    }
+  }
 
   const fetchMovements = async () => {
     const res = await apiFetch(`movements/paginated?page=${page + 1}&page_size=${pageSize}`)
@@ -31,21 +35,33 @@ function movements() {
     setTotal(res.total_movements);
   }
 
+  useEffect(() => {
+    fetchMovementTypes();
+  }, []);
 
   useEffect(() => {
     fetchMovements();
   }, [page, pageSize]);
 
-  async function handleToggleEstado(movement, nuevoEstado) {
+  async function handleToggleEstado(movement, nombreMovimiento) {
     try {
-      await apiFetch(`movements/by-id/${movement.id_movimiento_sede}?movement=${nuevoEstado}`, {
+      // Buscar el ID del tipo de movimiento
+      const tipoSeleccionado = tiposMovimiento.find(tipo => tipo.nombre_tipo === nombreMovimiento);
+      const idTipo = tipoSeleccionado?.id_tipo;
+
+      if (!idTipo) {
+        alert("Tipo de movimiento no válido");
+        return;
+      }
+
+      await apiFetch(`movements/by-id/${movement.id_movimiento_sede}?movement=${idTipo}`, {
         method: "PUT"
       });
 
       setMovements(prev =>
         prev.map(m =>
           m.id_movimiento_sede === movement.id_movimiento_sede
-            ? { ...m, tipo_movimiento: nuevoEstado }
+            ? { ...m, nombre_tipo: nombreMovimiento }
             : m
         )
       );
@@ -87,10 +103,10 @@ function movements() {
 
   const columns = [
     { header: "Autorización N.", accessorKey: "auth_id" },
-    { header: "Tipo equipo", accessorKey: "t_equipo" },
+    { header: "Tipo equipo", accessorKey: "c_equipo" },
     { header: "N. serie", accessorKey: "serie_eq" },
     {
-      header: "Movimiento", accessorKey: "tipo_movimiento",
+      header: "Movimiento", accessorKey: "tipo_id",
       cell: (info) => {
         const value = info.getValue();
         const movement = info.row.original.movements;
@@ -101,11 +117,11 @@ function movements() {
             value={value || ""}
             size="small"
             onChange={(e) => handleToggleEstado(movement, e.target.value)}
-            sx={getEstadoStyle(movement.tipo_movimiento)}
+            sx={getEstadoStyle(value)}
           >
-            {estadosMovement.map((tipo_movimiento) => (
-              <MenuItem key={tipo_movimiento.value} value={tipo_movimiento.value}>
-                {tipo_movimiento.label}
+            {tiposMovimiento.map((tipo) => (
+              <MenuItem key={tipo.id_tipo} value={tipo.nombre_tipo}>
+                {tipo.nombre_tipo}
               </MenuItem>
             ))}
           </MDInput>
@@ -132,8 +148,8 @@ function movements() {
   const rows = movements.map((movements) => ({
     auth_id: movements.autorizacion_id,
     serie_eq: movements.serial_equipo,
-    t_equipo: movements.categoria,
-    tipo_movimiento: movements.tipo_movimiento,
+    c_equipo: movements.nombre_categoria,
+    tipo_id: movements.nombre_tipo,
     user_registra: movements.nombre_usuario,
     fecha_movimiento: formatearFecha(movements.fecha_movimiento),
     movements

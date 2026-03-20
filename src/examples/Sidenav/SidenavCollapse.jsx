@@ -21,7 +21,14 @@ import {
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "@/context";
 
-function SidenavCollapse({ icon, name, active = "false", ...rest }) {
+function SidenavCollapse({
+  icon,
+  name,
+  active = false,
+  activeColor = "success",
+  activeBackground,
+  ...rest
+}) {
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
 
@@ -32,6 +39,8 @@ function SidenavCollapse({ icon, name, active = "false", ...rest }) {
         sx={(theme) =>
           collapseItem(theme, {
             active,
+            activeColor,
+            activeBackground,
             transparentSidenav,
             whiteSidenav,
             darkMode,
@@ -72,6 +81,8 @@ SidenavCollapse.propTypes = {
   icon: PropTypes.node,
   name: PropTypes.string,
   active: PropTypes.bool,
+  activeColor: PropTypes.string,
+  activeBackground: PropTypes.string,
 };
 
 export default SidenavCollapse;

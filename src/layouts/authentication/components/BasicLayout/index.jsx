@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -32,29 +17,31 @@ import Footer from "@/layouts/authentication/components/Footer";
 function BasicLayout({ image, children }) {
   return (
     <PageLayout>
-      <MDBox
-        position="absolute"
-        width="100%"
+      <Grid container display="flex">
+        <MDBox px={1} width="50%" height="100vh" mx="auto">
+          <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
+            <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
+              {children}
+            </Grid>
+          </Grid>
+        </MDBox>
+        <MDBox
+        width="50%"
         minHeight="100vh"
         sx={{
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             image &&
             `${linearGradient(
-              rgba(gradients.dark.main, 0.6),
-              rgba(gradients.dark.state, 0.6)
+              rgba(gradients.dark.main, 0),
+              rgba(gradients.dark.state, 0)
             )}, url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       />
-      <MDBox px={1} width="100%" height="100vh" mx="auto">
-        <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
-          <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
-            {children}
-          </Grid>
-        </Grid>
-      </MDBox>
+      
+      </Grid>
       <Footer light />
     </PageLayout>
   );

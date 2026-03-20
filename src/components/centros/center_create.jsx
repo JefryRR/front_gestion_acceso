@@ -4,19 +4,41 @@ import MDBox from "@/components/MDBox";
 import MDButton from "@/components/MDButton";
 import MDInput from "@/components/MDInput";
 import MDTypography from "@/components/MDTypography";
+import MenuItem from "@mui/material/MenuItem";
 
 function CentroCreateModal({ onSave, oncancel }) {
 
   const [form, setForm] = useState({
     codigo_centro: "",
     nombre: "",
-    direccion: "",
+    ciudad_id: "",
     estado: true
   });
 
+  const [ciudades, setCiudades] = useState([]);
+
+  useEffect(() => {
+    apiFetch("cities/all/cities")
+      .then(data => {
+
+        // Si tu backend devuelve lista directa:
+        if (Array.isArray(data)) {
+          setCiudades(data);
+        }
+        else if (data.ciudades) {
+          setCiudades(data.ciudades);
+        } 
+      })
+      .catch(err => console.error("Error al traer ciudades:", err));
+  }, []);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: name === "ciudad_id" ? Number(value) : value,
+    });
   };
 
   return (
@@ -44,13 +66,25 @@ function CentroCreateModal({ onSave, oncancel }) {
         />
       </MDBox>
 
-       <MDBox mb={2}>
+      <MDBox mb={2}>
         <MDInput
-          label="Dirección"
-          name="direccion"
-          value={form.direccion || ""}
+          select
+          label="Ciudad"
+          name="ciudad_id"
+          value={form.ciudad_id || ""}
           onChange={handleChange}
-        />
+          SelectProps={{ native: true }}
+          InputLabelProps={{ shrink: true }}
+           sx={{ width: 200 }}
+        >
+          <option value="">Seleccione el centro</option>
+          {Array.isArray(ciudades) &&
+          ciudades.map((ciudad) => (
+            <option key={ciudad.id_ciudad} value={ciudad.id_ciudad}>
+              {ciudad.nombre}
+            </option>
+          ))}
+        </MDInput>
       </MDBox>
 
       <MDBox display="flex" justifyContent="flex-end" gap={1}>

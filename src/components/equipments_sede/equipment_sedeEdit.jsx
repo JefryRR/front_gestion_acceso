@@ -10,18 +10,25 @@ import TextField from "@mui/material/TextField";
 
 export default function EquipoEdit_sedeModal({ oncancel, equipement_sede, onSave }) {
   const [form, setForm] = useState({
-    sede_id: 0, categoria: "",
-    marca_modelo: "", codigo_barras_equipo: "", serial: "", descripcion: ""
+    sede_id: 0,
+    categoria_id: "",
+    marca: "",
+    modelo: "",
+    codigo_barras_equipo: "",
+    serial: "",
+    descripcion: ""
   });
 
   const [nomb_sede, setNomb_sede] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
     if (equipement_sede) {
       setForm({
         sede_id: equipement_sede.sede_id,
-        categoria: equipement_sede.categoria,
-        marca_modelo: equipement_sede.marca_modelo,
+        categoria_id: equipement_sede.categoria_id,
+        marca: equipement_sede.marca || "",
+        modelo: equipement_sede.modelo || "",
         codigo_barras_equipo: equipement_sede.codigo_barras_equipo,
         serial: equipement_sede.serial,
         descripcion: equipement_sede.descripcion
@@ -38,6 +45,19 @@ export default function EquipoEdit_sedeModal({ oncancel, equipement_sede, onSave
         }
         else if (data.nomb_sede) {
           setNomb_sede(data.nomb_sede);
+        }
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    apiFetch("categoria/all/categories")
+      .then(data => {
+        if (Array.isArray(data)) {
+          setCategorias(data);
+        }
+        else if (data.categorias) {
+          setCategorias(data.categorias);
         }
       })
       .catch(err => console.error(err));
@@ -103,21 +123,28 @@ export default function EquipoEdit_sedeModal({ oncancel, equipement_sede, onSave
       </MDBox>
 
       <MDBox mb={2}>
-        <FormControl size="md">
+        <FormControl fullWidth size="medium">
           <InputLabel id="tipo-equipo-label">Tipo equipo</InputLabel>
-          <Select
-            labelId="categoria-label"
-            name="categoria"
-            value={form.categoria || ""}
-            label="Tipo equipo"
-            onChange={handleChange}
-            sx={{ height: 40, width: 255 }}
-          >
-            <MenuItem value="Portátil">Portátil </MenuItem>
-            <MenuItem value="PC Mesa">PC mesa</MenuItem>
-            <MenuItem value="Herramienta">Herramienta</MenuItem>
-            <MenuItem value="Otro">Otro</MenuItem>
-          </Select>
+            <Select
+              labelId="tipo-equipo-label"
+              label="Tipo equipo"
+              name="categoria_id"
+              value={form.categoria_id || ""}
+              onChange={handleChange}
+              sx={{
+                minHeight: 44,
+                "& .MuiSelect-select": {
+                  fontSize: "1rem",
+                },
+              }}
+            >
+              <MenuItem value="">Seleccione tipo equipo</MenuItem>
+              {categorias.map((cat) => (
+                <MenuItem key={cat.id_categoria} value={cat.id_categoria}>
+                  {cat.nombre_categoria}
+                </MenuItem>
+              ))}
+            </Select>
         </FormControl>
       </MDBox>
 
@@ -135,8 +162,18 @@ export default function EquipoEdit_sedeModal({ oncancel, equipement_sede, onSave
         <MDInput
           fullWidth
           label="Marca"
-          name="marca_modelo"
-          value={form.marca_modelo || ""}
+          name="marca"
+          value={form.marca || ""}
+          onChange={handleChange}
+        />
+      </MDBox>
+
+      <MDBox mb={2}>
+        <MDInput
+          fullWidth
+          label="Modelo"
+          name="modelo"
+          value={form.modelo || ""}
           onChange={handleChange}
         />
       </MDBox>

@@ -194,7 +194,7 @@ function Equipo_sedeCreateModal({ onSave, oncancel }) {
           <MDBox mb={2}>
             <MDInput
               fullWidth
-              label="Marca"
+              label="marca_modelo"
               name="marca_modelo"
               value={form.marca_modelo}
               onChange={handleChange}

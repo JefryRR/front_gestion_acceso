@@ -121,6 +121,7 @@ function Users() {
     { header: "Documento", accessorKey: "documento" },
     { header: "Email", accessorKey: "email" },
     { header: "Telefono", accessorKey: "telefono" },
+    { header: "Rol", accessorKey: "rol_user" },
     { header: "Estado", accessorKey: "estado",
       cell: (info) => {
     const value = info.getValue();
@@ -161,6 +162,7 @@ function Users() {
     telefono: user.telefono,
     estado: user.estado,
     nombre_sede: user.nombre,
+    rol_user: user.nombre_rol,
     user
   }));
 

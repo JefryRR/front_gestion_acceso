@@ -14,6 +14,11 @@ import Sedes from "@/pages/sedes";
 import Centros from "@/pages/centros";
 import Auth_salida from "@/pages/auth_salida";
 import Movements from "@/pages/movements";
+import Roles from "@/pages/roles";
+import Permisos from "@/pages/permisos";
+import Departamentos from "@/pages/departamentos";
+import Movements_type from "@/pages/movements_type";
+import Modulos from "@/pages/modulos";
 
 function App() {
   return (
@@ -38,11 +43,12 @@ function App() {
         <Route path="centros" element={<Centros />} />
         <Route path="auth_salida" element={<Auth_salida />} />
         <Route path="movements" element={<Movements />} />
+        <Route path="roles" element={<Roles />} />
+        <Route path="permisos" element={<Permisos />} />
+        <Route path="departamentos" element={<Departamentos />} />
+        <Route path="tipos-movimientos" element={<Movements_type />} />
+        <Route path="modulos" element={<Modulos />} />
       </Route>
-
-      {/* Fallback 
-      <Route path="*" element={<Navigate to="/login" replace />} />*/}
-
     </Routes>
   );
 }

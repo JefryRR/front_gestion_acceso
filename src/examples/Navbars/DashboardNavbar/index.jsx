@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-// react-router components
-import { useLocation, Link } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -12,7 +10,6 @@ import Toolbar from "@mui/material/Toolbar";
 
 // Material Dashboard 2 React components
 import MDBox from "@/components/MDBox";
-
 import MDButton from "@/components/MDButton";
 
 
@@ -20,15 +17,12 @@ import MDButton from "@/components/MDButton";
 import {
   navbar,
   navbarContainer,
-  navbarMobileMenu,
 } from "@/examples/Navbars/DashboardNavbar/styles";
 
 // Material Dashboard 2 React context
 import {
   useMaterialUIController,
   setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
 } from "@/context";
 
 const handleLogout = () => {
@@ -40,9 +34,8 @@ const handleLogout = () => {
 function DashboardNavbar({ absolute = "false", light = "false" }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
-  const [openMenu, setOpenMenu] = useState(false);
-  const route = useLocation().pathname.split("/").slice(1);
+  const { transparentNavbar, fixedNavbar, darkMode } = controller;
+
 
   useEffect(() => {
     // Setting the navbar type
@@ -93,14 +86,15 @@ function DashboardNavbar({ absolute = "false", light = "false" }) {
             size="small"
             onClick={handleLogout}
             sx={{
-              backgroundColor: "error.main",
+              backgroundColor: "#0a853d",
+
               color: "light.main",
               fontWeight: 500,
-              // whiteSpace: "nowrap",
-              // "&:hover": {
-              //   backgroundColor: "error.main",
-              //   color: "#ffffff",
-              //},
+              whiteSpace: "nowrap",
+              "&:hover": {
+                backgroundColor: "dark.main",
+                color: "#ffffff",
+              },
             }}
           >
             Salir

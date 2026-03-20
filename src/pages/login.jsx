@@ -27,7 +27,8 @@ function Login() {
       const data = await login(email, password);
 
       //almacena los datos de las credenciales del local cuando es correcto 
-      loginUser(data.access_token);
+      loginUser(data.access_token, data.user.rol_id);
+      console.log(data);
 
       //Navega hacia la página haciendo el cambio de ruta en un SPA de 
       // React donde se muestra los usuarios

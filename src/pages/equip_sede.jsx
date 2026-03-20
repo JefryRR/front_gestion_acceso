@@ -48,7 +48,7 @@ function Equips_sede() {
 
       setEquips_sede(equipos =>
         equipos.map(e =>
-          e.id_equipo === equipo.id_equipo_sede
+          e.id_equipo_sede === equipo.id_equipo_sede
             ? { ...e, estado: nuevoEstado }
             : e
         )
@@ -147,9 +147,10 @@ const getEstadoStyle = (estado) => ({
 
   const columns = [
     { header: "Sede", accessorKey: "nom_sede" },
-    { header: "Tipo equipo", accessorKey: "t_equipo" },
-    { header: "N. serie", accessorKey: "serie_eq" },
-    { header: "Marca", accessorKey: "marca_eq" },
+    { header: "Ubicación", accessorKey: "lugar_eq" },
+    { header: "Tipo equipo", accessorKey: "c_equipo" },
+    { header: "N. serial", accessorKey: "serie_eq" },
+    { header: "marca / modelo", accessorKey: "marca_modelo_eq" },
     { header: "descripcion", accessorKey: "descrip_eq",
       cell: (info) => (
         <div style={{ 
@@ -233,11 +234,12 @@ const getEstadoStyle = (estado) => ({
   };
 
   const rows = Equips_sede.map((equipement_sede) => ({
-    nom_sede: equipement_sede.nombre,
-    t_equipo: equipement_sede.categoria,
+    nom_sede: equipement_sede.nombre_sede,
+    lugar_eq: equipement_sede.nombre_area,
+    c_equipo: equipement_sede.nombre_categoria,
     descrip_eq: equipement_sede.descripcion,
     serie_eq: equipement_sede.serial,
-    marca_eq: equipement_sede.marca_modelo,
+    marca_modelo_eq: `${equipement_sede.marca || ""} / ${equipement_sede.modelo || ""}`.trim(),
     cod_eq: equipement_sede.codigo_barras_equipo,
     // foto_eq: equipement_sede.foto_path,
     estado: equipement_sede.estado,

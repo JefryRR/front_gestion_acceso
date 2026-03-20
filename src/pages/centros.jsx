@@ -20,7 +20,6 @@ function Centros() {
 
   const fetchCentros = async () => {
     const res = await apiFetch(`center/all/center`)
-     console.log("DATA CENTROS:", res);
       setCentros(res);
     }
 
@@ -109,6 +108,7 @@ function Centros() {
   const columns = [
     { header: "Código", accessorKey: "codigoCentro" },
     { header: "Nombre", accessorKey: "nombre_centro" },
+    { header: "Cuidad", accessorKey: "ciudad_centro" },
     {
       header: "Estado", accessorKey: "estado",
       cell: (info) => {
@@ -146,6 +146,7 @@ function Centros() {
   const rows = centros.map((centro) => ({
     codigoCentro: centro.codigo_centro,
     nombre_centro: centro.nombre,
+    ciudad_centro: centro.nombre_ciudad,
     estado: centro.estado,
     centro
   }));
